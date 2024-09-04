@@ -1,66 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Sobre a aplicação
 
-## About Laravel
+Projeto IP4Y Task Manager API, é uma API REST com objetido de organizar projetos e as tarefas resultante de cada projeto.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Pré requisito 
 
-## Learning Laravel
+PHP 8.2 ou Maior
+MySql
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# Ferramentas utilizadas
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+> Para desenvolvimento (codagem) foi utilizado o VSCode de custo zero, maior familiaridade, recursos adcionais de fácil compreeção e vasta comunidade
+> SGBD Mysql (vide desvios)
+> Client SQBD visual foi usitlizado o Dbeaver, de utilização intuitiva, consome pouca mpemoria em comparação ao Workbench e atende as necessidades
+> Core de consumo da API  utilizado foi o insomnia , de menor consumo de memória e fácil utilização.  
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Instalação
 
-## Laravel Sponsors
+para baixar o projeto basta executar o seguinte comendo : 
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+>> git clone https://github.com/M2fSolucoes/ip4y-task-manager-api.git
 
-### Premium Partners
+a pos a clonagem acesse a pasta ip4y-task-manager-api e execute o composer para baixar as dependencias do projeto :
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+>> composer install
 
-## Contributing
+Após a o término do processo do composer efetua as configurações das váriáveis de ambiente
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Configuração da conexão com banco de dados 
 
-## Code of Conduct
+Efetue a configuração de conexão com SGBD, para isso faça uma cópia o arquivo .env.example para .env também da raíz co projeto. 
+Nele encontre os parâmetros abaixo e preecha os com os dados do servidor do SGBD.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+> DB_CONNECTION=mysql
+> DB_HOST= <HOST_DO_SERVIDOR_MYSQL>
+> DB_PORT= <PORTA_DO_MYSQL>
+> DB_DATABASE= <NOME_DO_BANCO_DE_DADOS>
+> DB_USERNAME= <USUÁRIO_DO_BANCO_DE_DADOS>
+> DB_PASSWORD= <SENHA_USUÁRIO_DO_BANCO_DE_DADOS>
 
-## Security Vulnerabilities
+# Cofiguração do servidor SMTP
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Também deve ser feito a configuração de conexão com o servidor SMTP para envio de e-mail para recuperação de senha, atribuição de tarefas e alteração de status de uma tarefa
 
-## License
+> MAIL_MAILER=smtp
+> MAIL_HOST=<HOST_DO_SERVIDOR_SMTP>
+> MAIL_PORT=<PORTA_DO_SMTPL>
+> MAIL_USERNAME=<<USUÁRIO_SMTP>
+> MAIL_PASSWORD=<SENHA_USUÁRIO_SMTP>
+> MAIL_ENCRYPTION=<TIPO_DE_CRIPTOGRAFIA_SE_HOUVER>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Fila 
+
+Altere o parâmentro de fila para database para que os e-mails sejam processados em fila no segundo plano 
+
+> QUEUE_CONNECTION=database
+
+Para a execução das filas de e-mails é necessário : 
+
+Se servidor de aplicação linux , instale o supervisor conforme documentação ofocial Laravel, leia https://laravel.com/docs/9.x/queues#supervisor-configuration , ou como alternativa crie um crontab.
+
+> * * * * * php <pasta_do_projeto>/artisan schedule:run >> /dev/null 2>&1   (*)
+
+Se servidor MS Windows crie uma Task Scheduler "cron" com execução a cada segundo para o comando :
+
+> php <pasta_do_projeto>/artisan schedule:run >> /dev/null 2>&1 (*)
+
+Dessa forma o Scheduler do Laravel (app/Console/Kernel.php) será executado a cada segundo e nele há uma instrução para executar a fila caso haja "JOB" aguardando 
+
+
+# Criando banco de dados, tabelas e iniciando usuários padrões
+
+Após as configurações efetuadas execute o migrate para criar o banco de dados e suas tabelas
+
+>> php artisan migrate
+
+Crie os usuários padrões para teste da aplicação utilizando a Seeder 
+
+>> php artisan seed:db --class=UserSeeder
+
+# Envio de email em segundo plano
+
+Os e-mails de notificação de tarefas e mudança de status de tarefa são gerenciado por filas e  desde sua origem é executado em segundo plano atráves de um Observador. 
+
+Observador (Observer -  TaskObserver) monitora a model TaskUsers e todo evento de atribuição de uma tarefa ao usuário o mesmo invoca o envio de e-mail através de uma classe do tipo JOB (MailTaskUserJob) no método dispatch.
+
+Da mesma forma é monitorada a model Tasks no evento update na classe Observer (TaskUserObserver), toda ves que a field "status" é alterada  o mesmo invoca o envio de e-mail através de uma classe do tipo JOB (MailTaskStatusJob) e no método dispatch.
+
+Dessa forma o ennvio de e-mail fica trasparente e elegante diminuindo o processamento em tempo de requisição da classe TaskRepository.
+
+# Camadas de processamento
+
+Será verificado que nenhuma interação ao banco de dados é executada na camada do controlador, essa responsábilidade é passada para o repositório (app/Repositories), dessa forma cria-se organização e fascilita a manutenção além de tornar o código mais elegante.
+
+
+# Desvios 
+
+    SGBD MySQL foi utilizado em substituição ao requerido MSSQL SERVER devido : 
+    
+    1) A falta da ferramenta no ambiente de de desenvolvimento;
+    2) Falta de familiaridade com o SGBD 
+
+
+# Collection 
+
+A collection com os endpoints encontra-se na pasta raiz do projeto **ip4y-tark-manager-api.har**
+
+# Bugs não corrigidos nessa versão 
+
+Ao criar  um novo usuário e houver algum tipo de divergencia a execeção é redirecionada para uma página WEB Padrão , requer analise da falha.
+
+# Documetação da API
+
+https://documenter.getpostman.com/view/7985438/2sAXjNYWHS

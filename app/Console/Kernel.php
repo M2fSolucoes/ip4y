@@ -15,6 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('queue:work --tries=5 --stop-when-empty')
+        ->withoutOverlapping()
+        ->everyMinute()
+        ->runInBackground();
         // $schedule->command('inspire')->hourly();
     }
 

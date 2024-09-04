@@ -59,6 +59,9 @@ class ProjectRepository
     public function createProject($data)
     {
         try {
+
+
+
             $data['project_code'] = MakeProjectCode();
             $hasProjectTitle  = $this->project->where('title', $data['title'])->count();
             if($hasProjectTitle > 0) {

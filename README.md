@@ -21,12 +21,13 @@ MySql
 
 para baixar o projeto basta executar o seguinte comendo : 
 
->> git clone https://github.com/M2fSolucoes/ip4y-task-manager-api.git
-
+```
+git clone https://github.com/M2fSolucoes/ip4y-task-manager-api.git
+```
 a pos a clonagem acesse a pasta ip4y-task-manager-api e execute o composer para baixar as dependencias do projeto :
-
->> composer install
-
+```
+composer install
+```
 Após a o término do processo do composer efetua as configurações das váriáveis de ambiente
 
 # Configuração da conexão com banco de dados 
@@ -34,30 +35,32 @@ Após a o término do processo do composer efetua as configurações das váriá
 Efetue a configuração de conexão com SGBD, para isso faça uma cópia o arquivo .env.example para .env também da raíz co projeto. 
 Nele encontre os parâmetros abaixo e preecha os com os dados do servidor do SGBD.
 
-> DB_CONNECTION=mysql
-> DB_HOST= <HOST_DO_SERVIDOR_MYSQL>
-> DB_PORT= <PORTA_DO_MYSQL>
-> DB_DATABASE= <NOME_DO_BANCO_DE_DADOS>
-> DB_USERNAME= <USUÁRIO_DO_BANCO_DE_DADOS>
-> DB_PASSWORD= <SENHA_USUÁRIO_DO_BANCO_DE_DADOS>
-
+```
+DB_CONNECTION=mysql
+DB_HOST= <HOST_DO_SERVIDOR_MYSQL>
+DB_PORT= <PORTA_DO_MYSQL>
+DB_DATABASE= <NOME_DO_BANCO_DE_DADOS>
+DB_USERNAME= <USUÁRIO_DO_BANCO_DE_DADOS>
+DB_PASSWORD= <SENHA_USUÁRIO_DO_BANCO_DE_DADOS>
+```
 # Cofiguração do servidor SMTP
 
 Também deve ser feito a configuração de conexão com o servidor SMTP para envio de e-mail para recuperação de senha, atribuição de tarefas e alteração de status de uma tarefa
 
-> MAIL_MAILER=smtp
-> MAIL_HOST=<HOST_DO_SERVIDOR_SMTP>
-> MAIL_PORT=<PORTA_DO_SMTPL>
-> MAIL_USERNAME=<<USUÁRIO_SMTP>
-> MAIL_PASSWORD=<SENHA_USUÁRIO_SMTP>
-> MAIL_ENCRYPTION=<TIPO_DE_CRIPTOGRAFIA_SE_HOUVER>
-
+```
+MAIL_MAILER=smtp
+MAIL_HOST=<HOST_DO_SERVIDOR_SMTP>
+MAIL_PORT=<PORTA_DO_SMTPL>
+MAIL_USERNAME=<<USUÁRIO_SMTP>
+MAIL_PASSWORD=<SENHA_USUÁRIO_SMTP>
+MAIL_ENCRYPTION=<TIPO_DE_CRIPTOGRAFIA_SE_HOUVER>
+```
 # Fila 
 
 Altere o parâmentro de fila para database para que os e-mails sejam processados em fila no segundo plano 
-
-> QUEUE_CONNECTION=database
-
+```
+QUEUE_CONNECTION=database
+```
 Para a execução das filas de e-mails é necessário : 
 
 Se servidor de aplicação linux , instale o supervisor conforme documentação ofocial Laravel, leia https://laravel.com/docs/9.x/queues#supervisor-configuration , ou como alternativa crie um crontab.
@@ -65,22 +68,23 @@ Se servidor de aplicação linux , instale o supervisor conforme documentação 
 > * * * * * php <pasta_do_projeto>/artisan schedule:run >> /dev/null 2>&1   (*)
 
 Se servidor MS Windows crie uma Task Scheduler "cron" com execução a cada segundo para o comando :
+```
+php <pasta_do_projeto>/artisan schedule:run >> /dev/null 2>&1 (*)
 
-> php <pasta_do_projeto>/artisan schedule:run >> /dev/null 2>&1 (*)
-
+```
 Dessa forma o Scheduler do Laravel (app/Console/Kernel.php) será executado a cada segundo e nele há uma instrução para executar a fila caso haja "JOB" aguardando 
 
 
 # Criando banco de dados, tabelas e iniciando usuários padrões
 
 Após as configurações efetuadas execute o migrate para criar o banco de dados e suas tabelas
-
->> php artisan migrate
-
+```
+php artisan migrate
+```
 Crie os usuários padrões para teste da aplicação utilizando a Seeder 
-
->> php artisan seed:db --class=UserSeeder
-
+```
+php artisan seed:db --class=UserSeeder
+```
 # Envio de email em segundo plano
 
 Os e-mails de notificação de tarefas e mudança de status de tarefa são gerenciado por filas e  desde sua origem é executado em segundo plano atráves de um Observador. 
@@ -112,6 +116,6 @@ A collection com os endpoints encontra-se na pasta raiz do projeto **ip4y-tark-m
 
 Ao criar  um novo usuário e houver algum tipo de divergencia a execeção é redirecionada para uma página WEB Padrão , requer analise da falha.
 
-# Documetação da API
+# Documentação da API
 
 https://documenter.getpostman.com/view/7985438/2sAXjNYWHS
